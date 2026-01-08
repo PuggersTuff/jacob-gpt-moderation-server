@@ -1,10 +1,5 @@
-const express = require("express");
-const app = express();
-
-app.use(express.json());
-
-app.post("/moderate", (req, res) => {
-  const text = (req.body.text || "").toLowerCase();
+app.get("/moderate", (req, res) => {
+  const text = (req.query.text || "").toLowerCase();
 
   const bannedWords = [
     "hitler",
@@ -25,13 +20,4 @@ app.post("/moderate", (req, res) => {
   }
 
   res.json({ allowed: true });
-});
-
-app.get("/", (req, res) => {
-  res.send("Moderation server running");
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log("Server running on port", PORT);
 });
